@@ -4,7 +4,9 @@ Test to see if a file was written by you. Useful for babel/webpack conditional l
 
 ### Install
 
-```npm install same-author```
+```
+npm install same-author
+```
 
 ### Usage
 
