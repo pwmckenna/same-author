@@ -10,9 +10,8 @@ function author(codePath) {
   const pkgPath = path.resolve(root, 'package.json');
   const pkg = require(pkgPath);
   const repo = getPkgRepo(pkg);
-  const author = repo.user;
-  debug('author: %s, %s', codePath, author);
-  return author;
+  debug('author: %s, %s', codePath, repo.user);
+  return repo.user;
 }
 
 export default function (codePath1, otherPath) {
