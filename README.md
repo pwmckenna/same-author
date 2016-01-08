@@ -21,7 +21,8 @@ require('babel-core/register')({
 ##### Standalone
 ```js
 import writtenBySameAuthor from 'same-author';
-var isSameAuthor = writtenBySameAuthor('./node_modules/same-author', process.cwd()); // the second arg is optional. defaults to cwd.
-// process.cwd() is written by you, so this tests if your dependency "same-author" was also written by you.
+var isSameAuthor = writtenBySameAuthor('./node_modules/same-author', process.cwd());
+// the second arg is optional. defaults to cwd.
+// in this example, process.cwd() is written by you, so this tests if your dependency "same-author" was also written by you.
 // isSameAuthor will be true for me, but not for you.
 ```
