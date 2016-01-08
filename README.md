@@ -13,9 +13,36 @@ npm install same-author
 ##### Babel
 
 ```js
+var sameAuthor = require('same-author');
 require('babel-core/register')({
-  only: require('same-author')
+  only: sameAuthor
 });
+```
+
+##### Webpack
+
+```js
+{
+  ...
+  module: {
+    loaders: [{
+      // Uses the babel loader for just this app's code.
+      test: /\.js$/,
+      // exclude all dependencies...meaning you need to have published compiled code
+      // even if those dependencies are yours.
+      exclude: path.resolve(__dirname, 'node_modules')
+    }, {
+      // Uses the babel loader for both this app's code, but also any npm
+      // dependencies that you wrote.
+      test: function (filename) {
+        // Use
+        return sameAuthor(filename) && new RegExp(/\.js$/).test(filename);
+      },
+      loader: 'babel'
+    }]
+  }
+  ...
+}
 ```
 
 ##### Standalone
