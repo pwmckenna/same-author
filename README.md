@@ -26,16 +26,9 @@ require('babel-core/register')({
   ...
   module: {
     loaders: [{
-      // Uses the babel loader for just this app's code.
-      test: /\.js$/,
-      // exclude all dependencies...meaning you need to have published compiled code
-      // even if those dependencies are yours.
-      exclude: path.resolve(__dirname, 'node_modules')
-    }, {
-      // Uses the babel loader for both this app's code, but also any npm
-      // dependencies that you wrote.
       test: function (filename) {
-        // Use
+        // Uses the babel loader for both this app's code, but also any npm
+        // dependencies that you wrote.
         return sameAuthor(filename) && new RegExp(/\.js$/).test(filename);
       },
       loader: 'babel'
