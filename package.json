@@ -7,10 +7,11 @@
     "test": "DEBUG=same-author mocha --require babel-core/register",
     "lint": "eslint .",
     "compile": "babel src -d lib",
-    "prepublish": "npm run lint && npm run compile"
+    "prepublish": "npm run lint && npm run test && npm run compile"
   },
   "pre-commmit": [
-    "lint"
+    "lint",
+    "test"
   ],
   "repository": {
     "type": "git",
