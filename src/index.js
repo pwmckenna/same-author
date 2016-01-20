@@ -5,12 +5,22 @@ import debugLib from 'debug';
 
 const debug = debugLib('same-author');
 
+const rootAuthors = {};
+
 function author(codePath) {
   const root = findRoot(codePath);
+
+  if (rootAuthors.hasOwnProperty(root)) {
+    debug('author (cached): %s, %s', codePath, rootAuthors[root]);
+    return rootAuthors[root];
+  }
+
   const pkgPath = path.resolve(root, 'package.json');
   const pkg = require(pkgPath);
   const repo = getPkgRepo(pkg);
   debug('author: %s, %s', codePath, repo.user);
+
+  rootAuthors[root] = repo.user;
   return repo.user;
 }
 

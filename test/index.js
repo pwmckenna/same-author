@@ -1,8 +1,9 @@
 import assert from 'assert';
 import sameAuthor from '../src';
 import path from 'path';
+import rpt from 'read-package-tree';
 
-describe('same-author', () => {
+describe('same-author', function sameAuthorSuite() {
   it('tests a module that is written by the author of this repo', () => {
     const modulePath = path.resolve(__dirname, '../node_modules/eslint-config-pwmckenna/');
     const same = sameAuthor(modulePath);
@@ -24,5 +25,16 @@ describe('same-author', () => {
     const modulePath2 = path.resolve(__dirname, '../node_modules/babel-core/');
     const same = sameAuthor(modulePath1, modulePath2);
     assert(!same, 'expect eslint and babel-core to have different authors');
+  });
+  it('tests all files including dependencies and does not take forever', function sameAuthorSpeedTest(done) {
+    this.timeout(10000);
+    rpt(process.cwd(), (err, data) => {
+      const getNodePaths = node => node.children.reduce((aggregator, child) => (
+        aggregator.concat(getNodePaths(child))
+      ), [node.path]);
+      const paths = getNodePaths(data);
+      console.log(`${paths.filter(p => sameAuthor(p)).length}/${paths.length}`);
+      done(err);
+    });
   });
 });
