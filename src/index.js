@@ -2,12 +2,18 @@ import path from 'path';
 import getPkgRepo from 'get-pkg-repo';
 import findRoot from 'find-root';
 import debugLib from 'debug';
+import * as registerCache from './cache';
 
 const debug = debugLib('same-author');
 
+registerCache.load();
+const cache = registerCache.get();
 const rootAuthors = {};
 
 function author(codePath) {
+  if (cache.hasOwnProperty(codePath)) {
+    return cache[codePath];
+  }
   const root = findRoot(codePath);
 
   if (rootAuthors.hasOwnProperty(root)) {
@@ -21,6 +27,7 @@ function author(codePath) {
   debug('author: %s, %s', codePath, repo.user);
 
   rootAuthors[root] = repo.user;
+  cache[codePath] = repo.user;
   return repo.user;
 }
 
