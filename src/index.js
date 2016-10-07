@@ -3,6 +3,7 @@ import getPkgRepo from 'get-pkg-repo';
 import findRoot from 'find-root';
 import debugLib from 'debug';
 import * as registerCache from './cache';
+import { sep } from 'path';
 
 const debug = debugLib('same-author');
 
@@ -14,7 +15,8 @@ function author(codePath) {
   if (cache.hasOwnProperty(codePath)) {
     return cache[codePath];
   }
-  const root = findRoot(codePath);
+  const match = codePath.match('(.*\/node_modules\/[^/]*)');
+  const root = match ? match[0] : findRoot(codePath);
 
   if (rootAuthors.hasOwnProperty(root)) {
     debug('author (cached): %s, %s', codePath, rootAuthors[root]);

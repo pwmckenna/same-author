@@ -2,6 +2,7 @@ import assert from 'assert';
 import sameAuthor from '../src';
 import path from 'path';
 import rpt from 'read-package-tree';
+import { range } from 'lodash';
 
 describe('same-author', function sameAuthorSuite() {
   it('tests a module that is written by the author of this repo', () => {
@@ -32,7 +33,9 @@ describe('same-author', function sameAuthorSuite() {
       const getNodePaths = node => node.children.reduce((aggregator, child) => (
         aggregator.concat(getNodePaths(child))
       ), [node.path]);
-      const paths = getNodePaths(data);
+      const paths = getNodePaths(data).reduce((prev, next) => (
+        [...prev, ...range(500).map(n => `${next}/${n}`)]
+      ), []);
       console.log(`${paths.filter(p => sameAuthor(p)).length}/${paths.length}`);
       done(err);
     });

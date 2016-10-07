@@ -33,6 +33,7 @@
     "eslint-config-airbnb": "^3.0.2",
     "eslint-config-pwmckenna": "^1.0.1",
     "eslint-plugin-react": "^3.14.0",
+    "lodash": "^4.16.4",
     "mocha": "^2.3.4",
     "pre-commit": "^1.1.2",
     "read-package-tree": "^5.1.2"
