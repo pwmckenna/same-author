@@ -3,7 +3,6 @@ import getPkgRepo from 'get-pkg-repo';
 import findRoot from 'find-root';
 import debugLib from 'debug';
 import * as registerCache from './cache';
-import { sep } from 'path';
 
 const debug = debugLib('same-author');
 
