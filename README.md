@@ -19,7 +19,7 @@ require('babel-core/register')({
 });
 ```
 
-##### Webpack
+##### Webpack 1.x.x
 
 ```js
 {
@@ -32,6 +32,23 @@ require('babel-core/register')({
         return sameAuthor(filename) && new RegExp(/\.js$/).test(filename);
       },
       loader: 'babel'
+    }]
+  }
+  ...
+}
+```
+
+##### Webpack 2.x.x
+
+```js
+{
+  ...
+  module: {
+    rules: [{
+      test: {
+        and: [sameAuthor, /\.jsx?$/]
+      },
+      use: 'babel-loader'
     }]
   }
   ...
